@@ -3,7 +3,11 @@ class ArticlesController < ApplicationController
   # GET /articles.xml
   def index
     @articles = Article.all
-    @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    #@date = params[:month] ? Date.parse(params[:month]) : Date.today
+
+    @date = Time.parse("#{params[:start_date]} || Time.now.utc")
+    @start_date = Date.new(@date.year, @date.month, @date.day)
+    @events = Event.find(:all, :conditions => ['starts_at between ? and ?', @start_date, @start_date + 7])
 
     respond_to do |format|
       format.html # index.html.erb
