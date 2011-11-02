@@ -2,11 +2,12 @@
 
 <div id="calendar">
   <h2 id="month">
-    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y/%m") %>
+    <%= link_to "<", :first => (@date.beginning_of_week-7).strftime("%Y/%m/%d") %>
     <%=h @date.strftime("%B %Y") %>
-    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y/%m") %>
+    <%= link_to ">", :first => (@date.end_of_week+7).strftime("%Y/%m/%d") %>
   </h2>
-  <% calendar_for @articles, :year => @date.year, :month => @date.month do |calendar| %>
+  <%= @date.beginning_of_week %>
+  <% calendar_for @articles, :year => @date.year, :month => @date.month, :first => @date.beginning_of_week, :last => :one_week do |calendar| %>
     <%= calendar.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') %>
     <% calendar.day(:day_method => :date_written) do |date, articles| %>
       <%= date.day %>
@@ -18,15 +19,6 @@
     <% end %>
   <% end %>
 </div>
-
-<br />
-
-<% weekly_calendar(@events, :date => @date, :include_24_hours => true) do |w| %>
-  <% w.week(:business_hours => params[:business_hours]) do |event,truncate| %>
-    <%= event.starts_at.strftime('%I:%M%p') %>
-    <%= link_to truncate(event.name,truncate), event_path(event) %>
-  <% end -%>
-<% end -%>
 
 <br />
 

@@ -3,8 +3,8 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Start at</th>
-    <th>End at</th>
+    <th>Starts at</th>
+    <th>Ends at</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,8 +13,8 @@
 <% @events.each do |event| %>
   <tr>
     <td><%= event.name %></td>
-    <td><%= event.start_at %></td>
-    <td><%= event.end_at %></td>
+    <td><%= event.starts_at %></td>
+    <td><%= event.ends_at %></td>
     <td><%= link_to 'Show', event %></td>
     <td><%= link_to 'Edit', edit_event_path(event) %></td>
     <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
